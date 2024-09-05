@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "CITID_backend": {
+      "main": "src/CITID_backend/main.mo",
+      "type": "motoko"
+    },
+    "CITID_frontend": {
+      "dependencies": [
+        "CITID_backend"
+      ],
+      "source": [
+        "src/CITID_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "CITID_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
