@@ -13,6 +13,9 @@ import Register from "./components/app/auth/register/register";
 import Login from "./components/app/auth/login/login";
 import NotFound from "./components/app/components/notFound/notFound";
 import { themeContext } from "./Context";
+import MainCart from "./components/app/components/main/maincart";
+import SideBar from "./components/app/components/dashboard/sidebar/sidebar";
+import ImageToText from "./components/app/core/api/extractTextFromImage";
 import "./App.css";
 
 function App() {
@@ -92,6 +95,8 @@ function App() {
           <Route path="/verification" element={<Verification />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/myid" element={<MainCart />} />
+          <Route path="/test" element={<ImageToText />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       )}

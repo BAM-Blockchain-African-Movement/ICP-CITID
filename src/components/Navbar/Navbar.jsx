@@ -3,6 +3,7 @@ import Toggle from "../Toggle/Toggle";
 import "./Navbar.css";
 import { Link } from "react-scroll";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import logo from '../../img/citidlogo.png'
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Navbar = () => {
     <div className="n-wrapper" id="Navbar">
       {/* left */}
       <div className="n-left">
-        <div className="n-name">CITID</div>
+        <img src={logo} alt="" style={{height:'170px'}}/>
         <Toggle />
       </div>
       {/* right */}

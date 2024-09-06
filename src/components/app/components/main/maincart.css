@@ -1,0 +1,129 @@
+.page{
+    width: 100%;
+    height: 100vh;
+}
+.sectionn{
+    perspective: 1000px;
+    margin: auto;
+}
+
+.containnner{
+    position: relative;
+    height: 425px;
+    width: 775px;
+    z-index: 100;
+    transition: 0.6s;
+    transform-style: preserve-3d;
+}
+.containnner:hover{
+    transform: rotateY(180deg);
+}
+.cart{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+    box-shadow: 0px 25px 45px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    backface-visibility: hidden;
+}
+.front-face, 
+.back-face{
+    padding: 40px;
+}
+.front-face .log-box{
+    width: 120px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    
+}
+.front-face .chip{
+    width: 100px;
+}
+.front-face .profile{
+    border: 3px solid rgba(56, 56, 56, 0.281);
+    border-radius: 25px;
+    margin-left: 15px;
+    width: 70px;
+    height: 70px;
+}
+.back-face{
+    border: none;
+    transform: rotateY(180deg);
+}
+
+.lbl{
+    color: rgb(23, 173, 3);
+    font-size: 10px;
+    font-weight: bold;
+}
+.txt{
+    color:black
+}
+.room{
+    position: relative;
+    top: 40px;
+    width: 210px;
+}
+.info1-back .datum,
+.information1 .datum{
+    height: 50px;
+}
+
+.information2 .datum{
+    height: 40px;
+}
+.head-txt{
+    position: absolute;
+}
+.head-txt .h4{
+    font-size: 24px;
+    font-weight: bold;
+    height: 15px;
+    word-spacing: 10px;
+}
+
+.lg-profile{
+    position: relative;
+    top: 110px;
+    left: 130px;
+    width: 175px;
+    height: 230px;
+    border: 1px solid rgb(151, 151, 151);
+}
+.block-back{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.block-back .end{
+    background: rgba(0, 0, 0, 0.041);
+    padding: 0 30px 0 30px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+}
+.block-back .end .e{
+    font-weight: 900;
+    letter-spacing: 7px;
+    height: 30px;
+    font-size: 40px;
+    color: rgb(207, 207, 207);
+}
+.block-back .end .back-profile{
+    border: 3px solid rgba(56, 56, 56, 0.281);
+    border-radius: 25px;
+    width: 70px;
+    height: 70px;
+    position: relative;
+}
+.block-back .end div{
+    position: relative;
+    top: 20px;
+}
