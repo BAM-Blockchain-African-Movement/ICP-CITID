@@ -27,7 +27,7 @@ const Login = () => {
         if (result === "dashboard/citizen") {
           navigate("/myid");
         } else if (result === "dashboard/authority") {
-          navigate("/test");
+          navigate("/dashboard/authority");
         } else if (result === "dashboard/government") {
           navigate("/dashboard/government");
         } else {

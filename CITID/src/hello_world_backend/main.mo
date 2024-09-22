@@ -10,7 +10,6 @@ import Iter "mo:base/Iter";
 import Random "mo:base/Random";
 import Blob "mo:base/Blob";
 
-
 actor NationalIDSystem {
 
     // User roles
@@ -28,7 +27,7 @@ actor NationalIDSystem {
         name : Text;
         email : Text;
         doc : Text;
-        password : Text;
+        identifier : Text;
         date : Text;
     };
 
@@ -45,7 +44,7 @@ actor NationalIDSystem {
         profession : Text;
         father_name : Text;
         mother_name : Text;
-        password : Text;
+        identifier : Text;
         signature : Text;
         terms_and_conditions : Text;
         address : Text;
@@ -53,7 +52,7 @@ actor NationalIDSystem {
         date_of_issue : Text;
         date_of_expiry : Text;
         authority : Text;
-        email:Text;
+        email : Text;
     };
 
     type Share = {
@@ -68,7 +67,7 @@ actor NationalIDSystem {
         profession : Text;
         father_name : Text;
         mother_name : Text;
-        password : Text;
+        identifier : Text;
         signature : Text;
         terms_and_conditions : Text;
         address : Text;
@@ -77,51 +76,29 @@ actor NationalIDSystem {
         date_of_expiry : Text;
         authority : Text;
     };
-  type Usr = {
+    type Usr = {
         id : Text;
-        nom: Text;
-        prenom: Text;
-        tel: Text;
-        email: Text;
-        address: Text;
-        password: Text;
-        dateInscription: Nat64;
+        nom : Text;
+        prenom : Text;
+        tel : Text;
+        email : Text;
+        address : Text;
+        identifier : Text;
+        dateInscription : Nat64;
     };
     private stable var nextId : Nat = 0;
     let seed : Blob = "\14\c9\72\09\03\D4\D5\72\82\95\E5\43\AF\FA\A9\44\49\2F\25\56\13\6E\C7\B0\87\DC\76\08\69\14\CF";
-    private var nextUserId: Nat = Random.rangeFrom(32, seed);
+    private var nextUserId : Nat = Random.rangeFrom(32, seed);
     private var users = HashMap.HashMap<Text, User>(0, Text.equal, Text.hash);
     private var idCards = HashMap.HashMap<Text, IdCard>(0, Text.equal, Text.hash);
     private var sharedCards = HashMap.HashMap<Text, Share>(0, Text.equal, Text.hash); // Changed to Share
-    // private var utilisateurs = HashMap.HashMap<Text, Usr>(0,  Text.equal, Text.hash);
-    // Fuction that gets user procedure registration
-      // Fonction pour enregistrer un utilisateur
-//     public func inscription(nom: Text, prenom: Text, tel: Text, email: Text, adresse: Text, password: Text, date: Nat64) : async Result.Result<Text, Text> {
-//        let userId = nextUserId;
-//         nextUserId += 1;
-//        let userId1:Text = "CM" #Nat.toText(userId);
-//         let nouvelUtilisateur : Usr = {
-//             id = userId1;
-//             nom = nom;
-//             prenom = prenom;
-//             tel = tel;
-//             email = email;
-//             address = adresse;
-//             password = password;
-//             dateInscription = date;
-//         };
-//         utilisateurs.put(userId1, nouvelUtilisateur);
-//         #ok(nouvelUtilisateur.id);
-//     };
-//     public func getUserById(userId: Text) : async ?Usr {
-//   return utilisateurs.get(userId);
-// };
-    public  func createUser(
+
+    public func createUser(
         role : Text,
         name : Text,
         email : Text,
         doc : Text,
-        password : Text,
+        identifier : Text,
         date : Text,
     ) : async Result.Result<Text, Text> {
         let uid = nextId;
@@ -133,7 +110,7 @@ actor NationalIDSystem {
             name = name;
             email = email;
             doc = doc;
-            password = password;
+            identifier = identifier;
             date = date;
         };
         users.put(user.email, user);
@@ -142,7 +119,7 @@ actor NationalIDSystem {
 
     // Function that Creates id cards
     public func createIdCard(
-        
+
         name : Text,
         surname : Text,
         date_of_birth : Text,
@@ -153,7 +130,7 @@ actor NationalIDSystem {
         profession : Text,
         father_name : Text,
         mother_name : Text,
-        password : Text,
+        identifier : Text,
         signature : Text,
         terms_and_conditions : Text,
         address : Text,
@@ -161,15 +138,15 @@ actor NationalIDSystem {
         date_of_issue : Text,
         date_of_expiry : Text,
         authority : Text,
-        uid : Text
+        uid : Text,
     ) : async Result.Result<Text, Text> {
         switch (users.get(uid)) {
             case (?user) {
                 switch (user.role) {
                     case ("Citizen") {
                         let userId = nextUserId;
-        nextUserId += 1;
-       let userId1:Text = "CM" #Nat.toText(userId);
+                        nextUserId += 1;
+                        let userId1 : Text = "CM" #Nat.toText(userId);
                         let idCard : IdCard = {
                             id = userId1;
                             name = name;
@@ -182,7 +159,7 @@ actor NationalIDSystem {
                             profession = profession;
                             father_name = father_name;
                             mother_name = mother_name;
-                            password = password;
+                            identifier = identifier;
                             signature = signature;
                             terms_and_conditions = terms_and_conditions;
                             address = address;
@@ -192,13 +169,13 @@ actor NationalIDSystem {
                             authority = authority;
                             email = uid;
                         };
-                        idCards.put(idCard.password, idCard);
+                        idCards.put(idCard.identifier, idCard);
                         #ok(idCard.id);
                     };
                     case ("Authority") {
                         let userId = nextUserId;
-        nextUserId += 1;
-       let userId1:Text = "CM" #Nat.toText(userId);
+                        nextUserId += 1;
+                        let userId1 : Text = "CM" #Nat.toText(userId);
                         let idCard : IdCard = {
                             id = userId1;
                             name = name;
@@ -211,7 +188,7 @@ actor NationalIDSystem {
                             profession = profession;
                             father_name = father_name;
                             mother_name = mother_name;
-                            password = password;
+                            identifier = identifier;
                             signature = signature;
                             terms_and_conditions = terms_and_conditions;
                             address = address;
@@ -225,9 +202,9 @@ actor NationalIDSystem {
                         #ok(idCard.id);
                     };
                     case ("Government") {
-                          let userId = nextUserId;
-        nextUserId += 1;
-       let userId1:Text = "CM" #Nat.toText(userId);
+                        let userId = nextUserId;
+                        nextUserId += 1;
+                        let userId1 : Text = "CM" #Nat.toText(userId);
                         let idCard : IdCard = {
                             id = userId1;
                             name = name;
@@ -240,7 +217,7 @@ actor NationalIDSystem {
                             profession = profession;
                             father_name = father_name;
                             mother_name = mother_name;
-                            password = password;
+                            identifier = identifier;
                             signature = signature;
                             terms_and_conditions = terms_and_conditions;
                             address = address;
@@ -281,7 +258,7 @@ actor NationalIDSystem {
                                     profession = idCard.profession;
                                     father_name = idCard.father_name;
                                     mother_name = idCard.mother_name;
-                                    password = idCard.password;
+                                    identifier = idCard.identifier;
                                     signature = idCard.signature;
                                     terms_and_conditions = idCard.terms_and_conditions;
                                     address = idCard.address;
@@ -311,7 +288,7 @@ actor NationalIDSystem {
                                     profession = idCard.profession;
                                     father_name = idCard.father_name;
                                     mother_name = idCard.mother_name;
-                                    password = idCard.password;
+                                    identifier = idCard.identifier;
                                     signature = idCard.signature;
                                     terms_and_conditions = idCard.terms_and_conditions;
                                     address = idCard.address;
@@ -341,7 +318,7 @@ actor NationalIDSystem {
                                     profession = idCard.profession;
                                     father_name = idCard.father_name;
                                     mother_name = idCard.mother_name;
-                                    password = idCard.password;
+                                    identifier = idCard.identifier;
                                     signature = idCard.signature;
                                     terms_and_conditions = idCard.terms_and_conditions;
                                     address = idCard.address;
@@ -366,16 +343,37 @@ actor NationalIDSystem {
     // Function to get card by id
     public query func getCard(id : Text) : async ?IdCard {
         idCards.get(id);
-    };
+    };                                                                
 
     // Function to get all cards
-    public query func getAllCards() : async [IdCard] {
-        Iter.toArray(idCards.vals());
+    public query func getAllCards(uid : Text) : async [IdCard] {
+        switch (users.get(uid)) {
+            case (?user) {
+                switch (user.role) {
+                    case ("Government") {
+                        Iter.toArray(idCards.vals());
+                    };
+                    case (_) { [] };
+                };
+            };
+            case (_) { [] };
+        };
     };
 
     // Function to get all users
-    public query func getUsers() : async [User] {
-        Iter.toArray(users.vals());
+    public query func getUsers(uid:Text) : async [User] {
+        switch (users.get(uid)) {
+            case (?user) {
+                switch (user.role) {
+                    case ("Government") {
+                        Iter.toArray(users.vals());
+                    };
+                    case (_) { [] };
+                };
+            };
+            case (_) { [] };
+        };
+        
     };
 
     // Function to get all shared id cards
@@ -384,8 +382,8 @@ actor NationalIDSystem {
         Iter.toArray(sharedCards.vals());
     };
 
-    // Function that permits the user to revoke this / her id from share
-    public  func revokeSharedCard(id : Text, uid: Text) : async Bool {
+    // Function that permits the user to revoke his / her id from shared ledger
+    public func revokeSharedCard(id : Text, uid : Text) : async Bool {
         switch (users.get(uid)) {
             case (?user) {
                 switch (user.role) {
@@ -424,30 +422,34 @@ actor NationalIDSystem {
     };
 
     // Function to verify id card
-    public  func verifyId(id : Text, uid: Text) : async Text {
+    public func verifyId(id : Text, uid : Text) : async Text {
         switch (users.get(uid)) {
             case (?user) {
                 switch (user.role) {
                     case ("Authority") {
                         switch (idCards.get(id)) {
                             case (?idCard) {
-                                if (idCard.password == id) {
+                                if (idCard.identifier == id) {
                                     if (idCard.terms_and_conditions == "true") {
                                         return ("Authentic Numeric Id, verified OK!");
-                                    } else { return "Terms and conditions not accepted, card is invalid"; };
-                                } else { return "Invalid card number"; };
+                                    } else {
+                                        return "Terms and conditions not accepted, card is invalid";
+                                    };
+                                } else { return "Invalid card number" };
                             };
                             case (_) return ("Card not found");
                         };
                     };
                     case ("Government") {
-                         switch (idCards.get(id)) {
+                        switch (idCards.get(id)) {
                             case (?idCard) {
                                 if (idCard.id == id) {
                                     if (idCard.terms_and_conditions == "true") {
                                         return ("Authentic Numeric Id, verified OK!");
-                                    } else { return "Terms and conditions not accepted, card is invalid"; };
-                                } else { return "Invalid card number"; };
+                                    } else {
+                                        return "Terms and conditions not accepted, card is invalid";
+                                    };
+                                } else { return "Invalid card number" };
                             };
                             case (_) return ("Card not found");
                         };
@@ -460,48 +462,48 @@ actor NationalIDSystem {
     };
 
     // Function to verify user role [login]
-    public  func userRole(email: Text, password:Text) : async Text {
+    public func userRole(email : Text, identifier : Text) : async Text {
         switch (users.get(email)) {
             case (?user) {
                 switch (user.role) {
                     case ("Citizen") {
-                        switch(user.email == email) {
-                            case(true) { 
-                                switch(user.password == password){
-                                    case(true){
+                        switch (user.email == email) {
+                            case (true) {
+                                switch (user.identifier == identifier) {
+                                    case (true) {
                                         return "dashboard/citizen";
                                     };
-                                    case(_){ return "Not authorised"};
-                                }
-                             };
-                            case(_) { return "Not authorised"};
+                                    case (_) { return "Not authorised" };
+                                };
+                            };
+                            case (_) { return "Not authorised" };
                         };
-                        
+
                     };
                     case ("Authority") {
-                        switch(user.email == email) {
-                            case(true) { 
-                                switch(user.password == password){
-                                    case(true){
+                        switch (user.email == email) {
+                            case (true) {
+                                switch (user.identifier == identifier) {
+                                    case (true) {
                                         return "dashboard/authority";
                                     };
-                                    case(_){ return "Not authorised"};
-                                }
-                             };
-                            case(_) { return "Not authorised"};
+                                    case (_) { return "Not authorised" };
+                                };
+                            };
+                            case (_) { return "Not authorised" };
                         };
                     };
                     case ("Government") {
-                       switch(user.email == email) {
-                            case(true) { 
-                                switch(user.password == password){
-                                    case(true){
+                        switch (user.email == email) {
+                            case (true) {
+                                switch (user.identifier == identifier) {
+                                    case (true) {
                                         return "dashboard/government";
                                     };
-                                    case(_){ return "Not authorised"};
-                                }
-                             };
-                            case(_) { return "Not authorised"};
+                                    case (_) { return "Not authorised" };
+                                };
+                            };
+                            case (_) { return "Not authorised" };
                         };
                     };
                     case (_) return ("Access denied. Only citizens,authorities and government have access to this platform");
@@ -511,4 +513,3 @@ actor NationalIDSystem {
         };
     };
 };
-

@@ -17,6 +17,8 @@ import MainCart from "./components/app/components/main/maincart";
 import SideBar from "./components/app/components/dashboard/sidebar/sidebar";
 import VerifyId from "./components/app/components/dashboard/verifyid/verifyid";
 import ImageToText from "./components/app/core/api/extractTextFromImage";
+import Board from "./components/app/components/dashboard/board/board";
+import AuthBoard from "./components/app/components/dashboard/authBoard/authBoard";
 // import "./App.css";
 
 function App() {
@@ -98,7 +100,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/myid" element={<MainCart />} />
           <Route path="/verifyid" element={<VerifyId />} />
-          <Route path="/test" element={<SideBar />} />
+          <Route path="/createUser" element={<Board />} />
+          <Route path="/dashboard/government" element={<SideBar />} />
+          <Route path="/dashboard/authority" element={<AuthBoard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       )}

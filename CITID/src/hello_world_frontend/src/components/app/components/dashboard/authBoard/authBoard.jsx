@@ -1,9 +1,9 @@
 import React from "react";
-import './sidebar.css';
+import './authBoard.css';
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import Toggle from "../../../../Toggle/Toggle";
 import logo from '../../../../../img/citidlogo1.png';
-const SideBar = () =>{
+const AuthBoard = () =>{
   const navigate = useNavigate();
 
   const handleVerifyid = () => {
@@ -12,12 +12,7 @@ const SideBar = () =>{
   const handleRegistration = () => {
     navigate("/Register"); // Navigate to the login page
   };
-  const handleCreateUser = () =>{
-    navigate("/createUser");
-  };
-  const handleGetAllUser = () =>{
-    navigate("/GetAllUsers");
-  };
+
    return(
     <div className="n-wrapper" id="Navbar">
     {/* left */}
@@ -33,9 +28,7 @@ const SideBar = () =>{
       </div>
     </div> */}
     <div className="row">
-      <button className="col-md-3 button" onClick={handleGetAllUser}>Get all cards</button>
       <button className="col-md-3 button" onClick={handleRegistration}>Create card</button>
-      <button className="col-md-3 button" onClick={handleCreateUser}>Create User</button>
       <button className="col-md-3 button" onClick={handleVerifyid}>Verify card</button>
     </div>
   </div>
@@ -43,4 +36,4 @@ const SideBar = () =>{
    );
 }
 
-export default SideBar;
+export default AuthBoard;

@@ -9,6 +9,25 @@ const Register = () => {
   const darkMode = theme.state.darkMode;
   const navigate = useNavigate();
 
+  const getCurrentDate = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-indexed
+    const day = now.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const getExpiryDate = () => {
+      const now = new Date();
+      const year = now.getFullYear() + 10;
+      const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-indexed
+      const day = now.getDate().toString().padStart(2, '0');
+      return `${year}-${month}-${day}`;
+  }
+
+  let current_date = getCurrentDate();
+  let expiry_date = getExpiryDate();
+
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [date_of_birth, setDate_of_birth] = useState("");
@@ -24,8 +43,8 @@ const Register = () => {
   const [terms_and_conditions, setTerms_and_conditions] = useState("true"); // Initialize as false
   const [address, setAddress] = useState("");
   const [division, setDivision] = useState("");
-  const [date_of_issue, setDate_of_issue] = useState("");
-  const [date_of_expiry, setDate_of_expiry] = useState("");
+  const [date_of_issue, setDate_of_issue] = useState(current_date);
+  const [date_of_expiry, setDate_of_expiry] = useState(expiry_date);
   const [authority, setAuthority] = useState("Oboong Bolack");
   const [uid, setUid] = useState("");
 
@@ -33,7 +52,7 @@ const Register = () => {
     event.preventDefault();
     const nameName = event.target.elements.name.value;
     const surnameName = event.target.elements.surname.value;
-    // const date_of_birthName = event.target.elements.date_of_birth.value;
+    const date_of_birthName = event.target.elements.date_of_birth.value;
     const place_of_birthName = event.target.elements.place_of_birth.value;
     const sexName = event.target.elements.sex.value;
     const heightName = event.target.elements.height.value;
